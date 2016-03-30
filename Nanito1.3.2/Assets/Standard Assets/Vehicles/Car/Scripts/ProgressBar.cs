@@ -32,9 +32,10 @@ public class ProgressBar : MonoBehaviour {
 		} else if (other.gameObject.tag == "teleport 1") {
 			triangulo = false;
 			circulo = true;
-			transform.position = new Vector3 (-264f, -65f, 574.2f);
-			transform.rotation = Quaternion.Euler (359.69f, 179.9999f, 0);
+			transform.position = new Vector3 (-280f, -55.6f, 727.6f);
 			this.gameObject.GetComponent<Rigidbody> ().velocity = Vector3.zero;
+			transform.rotation = Quaternion.Euler (359.69f, 179.9999f, 0);
+
 			Debug.Log ("fade back");
 
 
@@ -80,9 +81,10 @@ public class ProgressBar : MonoBehaviour {
 
 		if (slider.value <= 0) {
 			if (circulo) {
-				transform.position = new Vector3 (-264f, -65f, 574.2f);
-				transform.rotation = Quaternion.Euler(359.69f, 179.9999f, 0);
-				this.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+				transform.position = new Vector3 (-280f, -55.6f, 727.6f);
+				this.gameObject.GetComponent<Rigidbody> ().velocity = Vector3.zero;
+				slider.value = 100;
+				transform.rotation = Quaternion.Euler (359.69f, 179.9999f, 0);
 			} else if (triangulo) {
 				
 				transform.position = new Vector3 (-570.7f, -60f, -25.4f);
