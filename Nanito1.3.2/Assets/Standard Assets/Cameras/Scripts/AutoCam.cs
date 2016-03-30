@@ -22,7 +22,7 @@ namespace UnityStandardAssets.Cameras
         private float m_CurrentTurnAmount; // How much to turn the camera
         private float m_TurnSpeedVelocityChange; // The change in the turn speed velocity
         private Vector3 m_RollUp = Vector3.up;// The roll of the camera around the z axis ( generally this will always just be up )
-
+		//private Vector3 targetAngle = new Vector3(4.50617f, 179.999f, -341.47f);
 
         protected override void FollowTarget(float deltaTime)
         {
@@ -44,7 +44,8 @@ namespace UnityStandardAssets.Cameras
                 if (targetRigidbody.velocity.magnitude > m_TargetVelocityLowerLimit)
                 {
                     // velocity is high enough, so we'll use the target's velocty
-                    targetForward = targetRigidbody.velocity.normalized;
+					targetForward = targetRigidbody.velocity.normalized;
+					//targetAngle = targetRigidbody.velocity.normalized;
                     targetUp = Vector3.up;
                 }
                 else
@@ -60,7 +61,9 @@ namespace UnityStandardAssets.Cameras
                 // This section allows the camera to stop following the target's rotation when the target is spinning too fast.
                 // eg when a car has been knocked into a spin. The camera will resume following the rotation
                 // of the target when the target's angular velocity slows below the threshold.
-                var currentFlatAngle = Mathf.Atan2(targetForward.x, targetForward.z)*Mathf.Rad2Deg;
+				var currentFlatAngle = Mathf.Atan2(targetForward.x, targetForward.z)*Mathf.Rad2Deg;
+				//var currentFlatAngle = Mathf.Atan2(targetAngle.x, targetAngle.z)*Mathf.Rad2Deg;
+
                 if (m_SpinTurnLimit > 0)
                 {
                     var targetSpinSpeed = Mathf.Abs(Mathf.DeltaAngle(m_LastFlatAngle, currentFlatAngle))/deltaTime;
@@ -85,19 +88,32 @@ namespace UnityStandardAssets.Cameras
             }
 
             // camera position moves towards target position:
-            transform.position = Vector3.Lerp(transform.position, m_Target.position, deltaTime*m_MoveSpeed);
+
+			//transform.position = Vector3.Lerp(transform.position, m_Target.position, deltaTime*m_MoveSpeed);
+
+			//Vector3 targetPosition = new Vector3 (-510, -65, 461);
+			transform.position = Vector3.Lerp(transform.position, m_Target.position, deltaTime*m_MoveSpeed);
 
             // camera's rotation is split into two parts, which can have independend speed settings:
             // rotating towards the target's forward direction (which encompasses its 'yaw' and 'pitch')
             if (!m_FollowTilt)
             {
-                targetForward.y = 0;
-                if (targetForward.sqrMagnitude < float.Epsilon)
+				targetForward.y = 0;
+				if (targetForward.sqrMagnitude < float.Epsilon)
                 {
                     targetForward = transform.forward;
                 }
+
+				//targetAngle.y = 0;
+				//if (targetAngle.sqrMagnitude < float.Epsilon) {
+				//	targetAngle = transform.forward;
+				//}
             }
-            var rollRotation = Quaternion.LookRotation(targetForward, m_RollUp);
+
+
+			var rollRotation = Quaternion.LookRotation(targetForward, m_RollUp);
+			//var rollRotation = Quaternion.LookRotation(targetAngle, m_RollUp);
+
 
             // and aligning with the target object's up direction (i.e. its 'roll')
             m_RollUp = m_RollSpeed > 0 ? Vector3.Slerp(m_RollUp, targetUp, m_RollSpeed*deltaTime) : Vector3.up;

@@ -21,13 +21,8 @@ public class PopUpScript : MonoBehaviour {
 			Debug.Log ("sii");
 			popup.GetComponent<SpriteRenderer>().sprite = atomo1;
 			popup.SetActive(true);
-			this.GetComponent<SpriteRenderer>().enabled = false;
-			//this.GetComponent<Collider>().enabled = false;
+			this.gameObject.SetActive (false);
 		}
-	}
-
-	void Start () {
-
 	}
 
 	void Update () {

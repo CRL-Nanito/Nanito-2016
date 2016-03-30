@@ -99,6 +99,7 @@
      <Compile Include="Assets\Scripts\ShieldScript.cs" />
      <Compile Include="Assets\Scripts\SpeedBooster.cs" />
      <Compile Include="Assets\Scripts\WingsCounter.cs" />
+     <Compile Include="Assets\Scripts\boxRotation.cs" />
      <None Include="Assets\AQUAS-Lite\Shaders\AQUAS-Lite.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />
